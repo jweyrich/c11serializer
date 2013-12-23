@@ -2,70 +2,70 @@
 
 #include "types.h"
 
-serializer_t *binary_serializer(void);
+c11serializer_serializer_t *c11serializer_binary_serializer(void);
 
-#define binary_serializer_ops_for(x)													\
-	_Generic((x), 																		\
-		/*void:						&binary_serializer_ops_for_void,*/					\
-		/*const void:				&binary_serializer_ops_for_constvoid,*/				\
-		char:						&binary_serializer_ops_for_char,					\
-		const char:					&binary_serializer_ops_for_constchar,				\
-		signed char:				&binary_serializer_ops_for_signedchar,				\
-		const signed char:			&binary_serializer_ops_for_constsignedchar,			\
-		unsigned char:				&binary_serializer_ops_for_unsignedchar,			\
-		const unsigned char:		&binary_serializer_ops_for_constunsignedchar,		\
-		short:						&binary_serializer_ops_for_short,					\
-		const short:				&binary_serializer_ops_for_constshort,				\
-		unsigned short:				&binary_serializer_ops_for_unsignedshort,			\
-		const unsigned short:		&binary_serializer_ops_for_constunsignedshort,		\
-		int:						&binary_serializer_ops_for_int,						\
-		const int:					&binary_serializer_ops_for_constint,				\
-		unsigned int:				&binary_serializer_ops_for_unsignedint,				\
-		const unsigned int:			&binary_serializer_ops_for_constunsignedint,		\
-		long:						&binary_serializer_ops_for_long,					\
-		const long:					&binary_serializer_ops_for_constlong,				\
-		unsigned long:				&binary_serializer_ops_for_unsignedlong,			\
-		const unsigned long:		&binary_serializer_ops_for_constunsignedlong,		\
-		long long:					&binary_serializer_ops_for_longlong,				\
-		const long long:			&binary_serializer_ops_for_constlonglong,			\
-		unsigned long long:			&binary_serializer_ops_for_unsignedlonglong,		\
-		const unsigned long long:	&binary_serializer_ops_for_constunsignedlonglong,	\
-		double:						&binary_serializer_ops_for_double,					\
-		const double:				&binary_serializer_ops_for_constdouble,				\
-		long double:				&binary_serializer_ops_for_longdouble,				\
-		const long double:			&binary_serializer_ops_for_constlongdouble,			\
-		float:					 	&binary_serializer_ops_for_float,					\
-		const float:				&binary_serializer_ops_for_constfloat,				\
-	    default:					NULL												\
+#define c11serializer_binary_serializer_ops_for(x)														\
+	_Generic((x), 																						\
+		/*void:						&c11serializer_binary_serializer_ops_for_void,*/					\
+		/*const void:				&c11serializer_binary_serializer_ops_for_constvoid,*/				\
+		char:						&c11serializer_binary_serializer_ops_for_char,						\
+		const char:					&c11serializer_binary_serializer_ops_for_constchar,					\
+		signed char:				&c11serializer_binary_serializer_ops_for_signedchar,				\
+		const signed char:			&c11serializer_binary_serializer_ops_for_constsignedchar,			\
+		unsigned char:				&c11serializer_binary_serializer_ops_for_unsignedchar,				\
+		const unsigned char:		&c11serializer_binary_serializer_ops_for_constunsignedchar,			\
+		short:						&c11serializer_binary_serializer_ops_for_short,						\
+		const short:				&c11serializer_binary_serializer_ops_for_constshort,				\
+		unsigned short:				&c11serializer_binary_serializer_ops_for_unsignedshort,				\
+		const unsigned short:		&c11serializer_binary_serializer_ops_for_constunsignedshort,		\
+		int:						&c11serializer_binary_serializer_ops_for_int,						\
+		const int:					&c11serializer_binary_serializer_ops_for_constint,					\
+		unsigned int:				&c11serializer_binary_serializer_ops_for_unsignedint,				\
+		const unsigned int:			&c11serializer_binary_serializer_ops_for_constunsignedint,			\
+		long:						&c11serializer_binary_serializer_ops_for_long,						\
+		const long:					&c11serializer_binary_serializer_ops_for_constlong,					\
+		unsigned long:				&c11serializer_binary_serializer_ops_for_unsignedlong,				\
+		const unsigned long:		&c11serializer_binary_serializer_ops_for_constunsignedlong,			\
+		long long:					&c11serializer_binary_serializer_ops_for_longlong,					\
+		const long long:			&c11serializer_binary_serializer_ops_for_constlonglong,				\
+		unsigned long long:			&c11serializer_binary_serializer_ops_for_unsignedlonglong,			\
+		const unsigned long long:	&c11serializer_binary_serializer_ops_for_constunsignedlonglong,		\
+		double:						&c11serializer_binary_serializer_ops_for_double,					\
+		const double:				&c11serializer_binary_serializer_ops_for_constdouble,				\
+		long double:				&c11serializer_binary_serializer_ops_for_longdouble,				\
+		const long double:			&c11serializer_binary_serializer_ops_for_constlongdouble,			\
+		float:					 	&c11serializer_binary_serializer_ops_for_float,						\
+		const float:				&c11serializer_binary_serializer_ops_for_constfloat,				\
+	    default:					NULL																\
 	)
 
-//extern serializer_ops_t binary_serializer_ops_for_void;
-//extern serializer_ops_t binary_serializer_ops_for_constvoid;
-extern serializer_ops_t binary_serializer_ops_for_char;
-extern serializer_ops_t binary_serializer_ops_for_constchar;
-extern serializer_ops_t binary_serializer_ops_for_signedchar;
-extern serializer_ops_t binary_serializer_ops_for_constsignedchar;
-extern serializer_ops_t binary_serializer_ops_for_unsignedchar;
-extern serializer_ops_t binary_serializer_ops_for_constunsignedchar;
-extern serializer_ops_t binary_serializer_ops_for_short;
-extern serializer_ops_t binary_serializer_ops_for_constshort;
-extern serializer_ops_t binary_serializer_ops_for_unsignedshort;
-extern serializer_ops_t binary_serializer_ops_for_constunsignedshort;
-extern serializer_ops_t binary_serializer_ops_for_int;
-extern serializer_ops_t binary_serializer_ops_for_constint;
-extern serializer_ops_t binary_serializer_ops_for_unsignedint;
-extern serializer_ops_t binary_serializer_ops_for_constunsignedint;
-extern serializer_ops_t binary_serializer_ops_for_long;
-extern serializer_ops_t binary_serializer_ops_for_constlong;
-extern serializer_ops_t binary_serializer_ops_for_unsignedlong;
-extern serializer_ops_t binary_serializer_ops_for_constunsignedlong;
-extern serializer_ops_t binary_serializer_ops_for_longlong;
-extern serializer_ops_t binary_serializer_ops_for_constlonglong;
-extern serializer_ops_t binary_serializer_ops_for_unsignedlonglong;
-extern serializer_ops_t binary_serializer_ops_for_constunsignedlonglong;
-extern serializer_ops_t binary_serializer_ops_for_double;
-extern serializer_ops_t binary_serializer_ops_for_constdouble;
-extern serializer_ops_t binary_serializer_ops_for_longdouble;
-extern serializer_ops_t binary_serializer_ops_for_constlongdouble;
-extern serializer_ops_t binary_serializer_ops_for_float;
-extern serializer_ops_t binary_serializer_ops_for_constfloat;
+//extern c11serializer_serializer_ops_t c11serializer_binary_serializer_ops_for_void;
+//extern c11serializer_serializer_ops_t c11serializer_binary_serializer_ops_for_constvoid;
+extern c11serializer_serializer_ops_t c11serializer_binary_serializer_ops_for_char;
+extern c11serializer_serializer_ops_t c11serializer_binary_serializer_ops_for_constchar;
+extern c11serializer_serializer_ops_t c11serializer_binary_serializer_ops_for_signedchar;
+extern c11serializer_serializer_ops_t c11serializer_binary_serializer_ops_for_constsignedchar;
+extern c11serializer_serializer_ops_t c11serializer_binary_serializer_ops_for_unsignedchar;
+extern c11serializer_serializer_ops_t c11serializer_binary_serializer_ops_for_constunsignedchar;
+extern c11serializer_serializer_ops_t c11serializer_binary_serializer_ops_for_short;
+extern c11serializer_serializer_ops_t c11serializer_binary_serializer_ops_for_constshort;
+extern c11serializer_serializer_ops_t c11serializer_binary_serializer_ops_for_unsignedshort;
+extern c11serializer_serializer_ops_t c11serializer_binary_serializer_ops_for_constunsignedshort;
+extern c11serializer_serializer_ops_t c11serializer_binary_serializer_ops_for_int;
+extern c11serializer_serializer_ops_t c11serializer_binary_serializer_ops_for_constint;
+extern c11serializer_serializer_ops_t c11serializer_binary_serializer_ops_for_unsignedint;
+extern c11serializer_serializer_ops_t c11serializer_binary_serializer_ops_for_constunsignedint;
+extern c11serializer_serializer_ops_t c11serializer_binary_serializer_ops_for_long;
+extern c11serializer_serializer_ops_t c11serializer_binary_serializer_ops_for_constlong;
+extern c11serializer_serializer_ops_t c11serializer_binary_serializer_ops_for_unsignedlong;
+extern c11serializer_serializer_ops_t c11serializer_binary_serializer_ops_for_constunsignedlong;
+extern c11serializer_serializer_ops_t c11serializer_binary_serializer_ops_for_longlong;
+extern c11serializer_serializer_ops_t c11serializer_binary_serializer_ops_for_constlonglong;
+extern c11serializer_serializer_ops_t c11serializer_binary_serializer_ops_for_unsignedlonglong;
+extern c11serializer_serializer_ops_t c11serializer_binary_serializer_ops_for_constunsignedlonglong;
+extern c11serializer_serializer_ops_t c11serializer_binary_serializer_ops_for_double;
+extern c11serializer_serializer_ops_t c11serializer_binary_serializer_ops_for_constdouble;
+extern c11serializer_serializer_ops_t c11serializer_binary_serializer_ops_for_longdouble;
+extern c11serializer_serializer_ops_t c11serializer_binary_serializer_ops_for_constlongdouble;
+extern c11serializer_serializer_ops_t c11serializer_binary_serializer_ops_for_float;
+extern c11serializer_serializer_ops_t c11serializer_binary_serializer_ops_for_constfloat;

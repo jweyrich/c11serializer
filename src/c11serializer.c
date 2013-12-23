@@ -2,27 +2,29 @@
 #include <assert.h>
 #include <errno.h>
 
+#if 1
 typedef struct {
 	const char *name;
-	serializer_t *(* please)(void);
-} serializer_list_t;
+	c11serializer_serializer_t *(* please)(void);
+} c11serializer_serializer_list_t;
 
-static serializer_list_t serializers[] = {
-	{ "binary", &binary_serializer },
-	{ "text",	&text_serializer }
+static c11serializer_serializer_list_t available_serializers[] = {
+	{ "binary", &c11serializer_binary_serializer },
+	{ "text",	&c11serializer_text_serializer }
 };
 
-serializer_t *serializer(const char *name) {
-	size_t size = sizeof(serializers) / sizeof(serializers[0]);
+static c11serializer_serializer_t *c11serializer_serializer_by_name(const char *name) {
+	size_t size = sizeof(available_serializers) / sizeof(available_serializers[0]);
 	for (size_t i = 0; i < size; i++)
-		if (strcmp(name, serializers[i].name) == 0)
-			return serializers[i].please();
+		if (strcmp(name, available_serializers[i].name) == 0)
+			return available_serializers[i].please();
 	return NULL;
 }
+#endif
 
 // -------------------------------------------------------------------------------------------------
 
-int do_read(FILE *stream, void *data, size_t size, const serializer_ops_t *ops) {
+int c11serializer_do_read(FILE *stream, void *data, size_t size, const c11serializer_serializer_ops_t *ops) {
 	assert(ops != NULL);
 	//printf("[DEBUG] reading %zu byte(s) of '%s'\n", size, ops->type_name);
 	int ret = ops->read(stream, data, size);
@@ -33,7 +35,7 @@ int do_read(FILE *stream, void *data, size_t size, const serializer_ops_t *ops) 
 	return ret;
 }
 
-int do_write(FILE *stream, const void *data, size_t size, const serializer_ops_t *ops) {
+int c11serializer_do_write(FILE *stream, const void *data, size_t size, const c11serializer_serializer_ops_t *ops) {
 	assert(ops != NULL);
 	//printf("[DEBUG] writing %zu byte(s) of '%s'\n", size, ops->type_name);
 	int ret = ops->write(stream, data, size);

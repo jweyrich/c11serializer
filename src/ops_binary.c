@@ -2,36 +2,36 @@
 #include <assert.h>
 #include <stdio.h>
 
-#define SERIALIZER_NAME										binary
-#define SERIALIZER_OPS_PREFIX								PASTE(SERIALIZER_NAME, _serializer_ops_for_)
+#define SERIALIZER_NAME											binary
+#define SERIALIZER_OPS_PREFIX									PASTE(c11serializer_, SERIALIZER_NAME, _serializer_ops_for_)
 
-#define DEFINE_SERIALIZER_OPS_FOR_TYPE1(T1)					DEFINE_SERIALIZER_OPS_FOR_TYPE_(1,T1,,,,,)
-#define DEFINE_SERIALIZER_OPS_FOR_TYPE2(T1,T2) 				DEFINE_SERIALIZER_OPS_FOR_TYPE_(2,T1,T2,,,,)
-#define DEFINE_SERIALIZER_OPS_FOR_TYPE3(T1,T2,T3)			DEFINE_SERIALIZER_OPS_FOR_TYPE_(3,T1,T2,T3,,,)
-#define DEFINE_SERIALIZER_OPS_FOR_TYPE4(T1,T2,T3,T4)		DEFINE_SERIALIZER_OPS_FOR_TYPE_(4,T1,T2,T3,T4,,)
-#define DEFINE_SERIALIZER_OPS_FOR_TYPE5(T1,T2,T3,T4,T5)		DEFINE_SERIALIZER_OPS_FOR_TYPE_(5,T1,T2,T3,T4,T5,)
-#define DEFINE_SERIALIZER_OPS_FOR_TYPE6(T1,T2,T3,T4,T5,T6)	DEFINE_SERIALIZER_OPS_FOR_TYPE_(6,T1,T2,T3,T4,T5,T6)
-#define DEFINE_SERIALIZER_OPS_FOR_TYPE_(N,T1,T2,T3,T4,T5,T6)				\
-	int PASTE(SERIALIZER_NAME,_read_,T1,T2,T3,T4,T5,T6)						\
-		(FILE *stream, void *data, size_t size)								\
-	{																		\
-		assert(stream != NULL);												\
-		assert(size > 0);													\
-		size_t ret = fread(data, size, 1, stream);							\
-		return ret == 1 ? size : -1;										\
-	}																		\
-	int PASTE(SERIALIZER_NAME,_write_,T1,T2,T3,T4,T5,T6)					\
-		(FILE *stream, const void *data, size_t size)						\
-	{																		\
-		assert(stream != NULL);												\
-		assert(size > 0);													\
-		size_t ret = fwrite(data, size,  1, stream);						\
-		return ret == 1 ? size : -1;										\
-	}																		\
-	serializer_ops_t PASTE(SERIALIZER_OPS_PREFIX,T1,T2,T3,T4,T5,T6) = {		\
-		.type_name = SERIALIZER_OPS_TYPE_NAME(N,T1,T2,T3,T4,T5,T6),			\
-		.read = &PASTE(SERIALIZER_NAME,_read_,T1,T2,T3,T4,T5,T6),			\
-		.write = &PASTE(SERIALIZER_NAME,_write_,T1,T2,T3,T4,T5,T6)			\
+#define DEFINE_SERIALIZER_OPS_FOR_TYPE1(T1)						DEFINE_SERIALIZER_OPS_FOR_TYPE_(1,T1,,,,,)
+#define DEFINE_SERIALIZER_OPS_FOR_TYPE2(T1,T2) 					DEFINE_SERIALIZER_OPS_FOR_TYPE_(2,T1,T2,,,,)
+#define DEFINE_SERIALIZER_OPS_FOR_TYPE3(T1,T2,T3)				DEFINE_SERIALIZER_OPS_FOR_TYPE_(3,T1,T2,T3,,,)
+#define DEFINE_SERIALIZER_OPS_FOR_TYPE4(T1,T2,T3,T4)			DEFINE_SERIALIZER_OPS_FOR_TYPE_(4,T1,T2,T3,T4,,)
+#define DEFINE_SERIALIZER_OPS_FOR_TYPE5(T1,T2,T3,T4,T5)			DEFINE_SERIALIZER_OPS_FOR_TYPE_(5,T1,T2,T3,T4,T5,)
+#define DEFINE_SERIALIZER_OPS_FOR_TYPE6(T1,T2,T3,T4,T5,T6)		DEFINE_SERIALIZER_OPS_FOR_TYPE_(6,T1,T2,T3,T4,T5,T6)
+#define DEFINE_SERIALIZER_OPS_FOR_TYPE_(N,T1,T2,T3,T4,T5,T6)							\
+	int PASTE(SERIALIZER_NAME,_read_,T1,T2,T3,T4,T5,T6)									\
+		(FILE *stream, void *data, size_t size)											\
+	{																					\
+		assert(stream != NULL);															\
+		assert(size > 0);																\
+		size_t ret = fread(data, size, 1, stream);										\
+		return ret == 1 ? size : -1;													\
+	}																					\
+	int PASTE(SERIALIZER_NAME,_write_,T1,T2,T3,T4,T5,T6)								\
+		(FILE *stream, const void *data, size_t size)									\
+	{																					\
+		assert(stream != NULL);															\
+		assert(size > 0);																\
+		size_t ret = fwrite(data, size,  1, stream);									\
+		return ret == 1 ? size : -1;													\
+	}																					\
+	c11serializer_serializer_ops_t PASTE(SERIALIZER_OPS_PREFIX,T1,T2,T3,T4,T5,T6) = {	\
+		.type_name = C11SERIALIZER_SERIALIZER_OPS_TYPE_NAME(N,T1,T2,T3,T4,T5,T6),		\
+		.read = &PASTE(SERIALIZER_NAME,_read_,T1,T2,T3,T4,T5,T6),						\
+		.write = &PASTE(SERIALIZER_NAME,_write_,T1,T2,T3,T4,T5,T6)						\
 	}
 
 //DEFINE_SERIALIZER_OPS_FOR_TYPE1(void);
@@ -65,7 +65,7 @@ DEFINE_SERIALIZER_OPS_FOR_TYPE3(const, long, double);
 DEFINE_SERIALIZER_OPS_FOR_TYPE1(float);
 DEFINE_SERIALIZER_OPS_FOR_TYPE2(const, float);
 
-serializer_t *binary_serializer(void) {
+c11serializer_serializer_t *c11serializer_binary_serializer(void) {
 	return NULL;
 }
 

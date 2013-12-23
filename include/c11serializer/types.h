@@ -7,12 +7,12 @@ typedef struct {
 	const char *type_name;
 	int (* read)(FILE *stream, void *data, size_t size);
 	int (* write)(FILE *stream, const void *data, size_t size);
-} serializer_ops_t;
+} c11serializer_serializer_ops_t;
 
 typedef struct {
 	const char *name;
-	serializer_ops_t *ops;
-} serializer_t;
+	c11serializer_serializer_ops_t *ops;
+} c11serializer_serializer_t;
 
 #define is_compatible(x, T)	_Generic((x), T: true, default: false)
 
@@ -37,10 +37,10 @@ typedef struct {
 #define PASTE_9(_1,_2,_3,_4,_5,_6,_7,_8,_9,...)				_1 ## _2 ## _3 ## _4 ## _5 ## _6 ## _7 ## _8 ## _9
 #define PASTE_10(_1,_2,_3,_4,_5,_6,_7,_8,_9,_10,...)		_1 ## _2 ## _3 ## _4 ## _5 ## _6 ## _7 ## _8 ## _9 ## _10
 
-#define SERIALIZER_OPS_TYPE_NAME(N,...)						SERIALIZER_OPS_TYPE_NAME_ ## N (__VA_ARGS__)
-#define SERIALIZER_OPS_TYPE_NAME_0(...)						"<missing type>"
-#define SERIALIZER_OPS_TYPE_NAME_1(_1,...)					STR(_1)
-#define SERIALIZER_OPS_TYPE_NAME_2(_1,_2,...)				STR(_1) " " STR(_2)
-#define SERIALIZER_OPS_TYPE_NAME_3(_1,_2,_3,...)			STR(_1) SERIALIZER_OPS_TYPE_NAME_2(_2,_3,)
-#define SERIALIZER_OPS_TYPE_NAME_4(_1,_2,_3,_4,...)			STR(_1) SERIALIZER_OPS_TYPE_NAME_3(_2,_3,_4,)
-#define SERIALIZER_OPS_TYPE_NAME_5(_1,_2,_3,_4,_5,...)		STR(_1) SERIALIZER_OPS_TYPE_NAME_4(_2,_3,_4,_5,)
+#define C11SERIALIZER_SERIALIZER_OPS_TYPE_NAME(N,...)					C11SERIALIZER_SERIALIZER_OPS_TYPE_NAME_ ## N (__VA_ARGS__)
+#define C11SERIALIZER_SERIALIZER_OPS_TYPE_NAME_0(...)					"<missing type>"
+#define C11SERIALIZER_SERIALIZER_OPS_TYPE_NAME_1(_1,...)				STR(_1)
+#define C11SERIALIZER_SERIALIZER_OPS_TYPE_NAME_2(_1,_2,...)				STR(_1) " " STR(_2)
+#define C11SERIALIZER_SERIALIZER_OPS_TYPE_NAME_3(_1,_2,_3,...)			STR(_1) C11SERIALIZER_SERIALIZER_OPS_TYPE_NAME_2(_2,_3,)
+#define C11SERIALIZER_SERIALIZER_OPS_TYPE_NAME_4(_1,_2,_3,_4,...)		STR(_1) C11SERIALIZER_SERIALIZER_OPS_TYPE_NAME_3(_2,_3,_4,)
+#define C11SERIALIZER_SERIALIZER_OPS_TYPE_NAME_5(_1,_2,_3,_4,_5,...)	STR(_1) C11SERIALIZER_SERIALIZER_OPS_TYPE_NAME_4(_2,_3,_4,_5,)
